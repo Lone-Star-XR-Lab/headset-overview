@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Headset Overview — Meta Quest 3 (Basics)</title>
+    <style>
+      :root {
+        --ink: #000;
+        --bg: #fff;
+        --pin: #000;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      .wrap { display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 2rem; }
+      .card { max-width: 900px; width: 100%; }
+      .toolbar { display: flex; justify-content: flex-end; gap: 0.5rem; margin-bottom: 0.75rem; }
+      .btn {
+        border: 2px solid var(--ink);
+        background: #fff;
+        padding: 0.4rem 0.7rem;
+        border-radius: 0.6rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      h1 { text-align: center; font-size: 2.2rem; margin: 0 0 0.4rem; }
+      .subtitle { text-align: center; font-size: 1.05rem; margin-bottom: 1rem; }
+      h2 {
+        font-size: 1.35rem;
+        margin: 1.2rem 0 0.6rem;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 0.25rem;
+      }
+
+      .grid { display: block; }
+
+      ul { margin: 0.25rem 0; padding-left: 1.1rem; font-size: 1.05rem; list-style: disc; }
+      li { margin: 0.25rem 0; }
+      figure { margin: 0; text-align: center; }
+      figcaption { text-align: center; font-size: 0.9rem; margin-top: 0.4rem; }
+
+      /* Photos + pins */
+      .photo-wrap {
+        position: relative;
+        border: none;
+        border-radius: 0.25rem;
+        overflow: hidden;
+        max-width: 100%;
+        margin: auto;
+      }
+      .photo {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 380px;             /* screen size */
+        object-fit: contain;
+      }
+
+      .pin {
+        position: absolute;
+        left: var(--x);
+        top: var(--y);
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+      }
+      .pin .dot {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #000;
+        border-radius: 50%;
+        background: #50fa7b; /* keep your existing dot color */
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+      }
+      .pin .label {
+        margin-left: 6px;
+        background: #fff;
+        border: 1.5px solid var(--ink);
+        border-radius: 999px;
+        padding: 0.1rem 0.45rem;
+        white-space: nowrap;
+        font-size: 1.5rem;
+        box-shadow: 0 0 0 2px #fff;
+      }
+      /* Left-label helper (apply on the label element) */
+      .pin .label.left {
+        order: -1;
+        margin-left: 0;
+        margin-right: 8px;
+      }
+
+      /* We'll reference .section in print to keep chunks together */
+      .section {}
+
+      @page { size: Letter; margin: 0.5in; }
+      @media print {
+        body { background: #fff; }
+        .wrap { padding: 0; }
+        .toolbar { display: none !important; }
+
+        /* Keep each section tidy (figure + caption + key text) */
+        .section {
+          break-inside: avoid;
+          page-break-inside: avoid;
+          margin-bottom: 0.25in;
+        }
+        h2 {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+        figure, .photo-wrap {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+
+        /* Shorter images on paper to help a section fit a single page */
+        .photo {
+          max-height: 260px !important;
+          object-fit: contain;
+        }
+
+        /* Lists: avoid orphan/widow single lines */
+        ul { margin-top: 0.2rem; margin-bottom: 0.2rem; }
+        li { widows: 2; orphans: 2; }
+
+        /* Make sure colored dots/labels actually print with color */
+        .pin .dot, .pin .label {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <main class="card" aria-labelledby="title">
+        <div class="toolbar no-print">
+          <button class="btn" onclick="window.print()">Print</button>
+        </div>
+
+        <h1 id="title">Meta Quest 3 — Basics</h1>
+        <p class="subtitle">
+          Quick reference for headset fit, power, lens (IPD) adjustment, and volume.
+        </p>
+
+        <!-- 1) HEAD STRAP FIRST -->
+        <section class="section" aria-labelledby="strap-h">
+          <h2 id="strap-h">Head Strap Fit</h2>
+          <figure>
+            <div class="photo-wrap" aria-label="Photo with pins marking rear dial and top strap">
+              <img class="photo" src="images/elite strap back.jpg" alt="Meta Quest 3 battery strap rear dial and top strap" />
+              <div class="pin" style="--x: 52%; --y: 70%">
+                <div class="dot"></div>
+                <!-- Only this label is flipped to the LEFT; pin position and color unchanged -->
+                <div class="label left"><strong>Rear Dial</strong> — tighten/loosen</div>
+              </div>
+              <div class="pin" style="--x: 72%; --y: 12%">
+                <div class="dot"></div>
+                <div class="label"><strong>Top Strap</strong> — height/angle</div>
+              </div>
+            </div>
+            <figcaption>
+              Loosen first, put on, then tighten with the <strong>rear dial</strong>. Use the <strong>top strap</strong> to set height.
+            </figcaption>
+          </figure>
+          <ul>
+            <li>Before wearing, <strong>loosen</strong> the rear dial.</li>
+            <li>Place the headset, then turn the dial until snug (not tight).</li>
+            <li>Adjust the <strong>top strap</strong> so the display sits comfortably and the image is centered.</li>
+          </ul>
+        </section>
+
+        <!-- 2) POWER SECOND -->
+        <section class="section" aria-labelledby="power-h">
+          <h2 id="power-h">Power</h2>
+          <figure>
+            <div class="photo-wrap" aria-label="Photo with pin marking power button">
+              <img class="photo" src="images/Quest-3-Elite-Strap-with-Battery.webp" alt="Meta Quest 3 right side showing power button" />
+              <div class="pin" style="--x: 35%; --y: 63%">
+                <div class="dot"></div>
+                <div class="label"><strong>Power Button</strong></div>
+              </div>
+              <div class="pin" style="--x: 75%; --y: 53%">
+                <div class="dot"></div>
+                <div class="label">Battery Strap</div>
+              </div>
+            </div>
+            <figcaption>
+              Hold the <strong>Power Button</strong> to turn on/off. Tap once to wake/sleep.
+            </figcaption>
+          </figure>
+          <ul>
+            <li><strong>Turn On:</strong> Hold the power button until the screen lights up.</li>
+            <li><strong>Sleep/Wake:</strong> Tap the power button once.</li>
+            <li><strong>Turn Off:</strong> Hold, then confirm on-screen to power down.</li>
+            <li><strong>Battery Strap:</strong> Extends playtime and balances weight.</li>
+          </ul>
+        </section>
+
+        <!-- 3) IPD THIRD -->
+        <section class="section" aria-labelledby="ipd-h">
+          <h2 id="ipd-h">Lens (IPD) Adjustment</h2>
+          <figure>
+            <div class="photo-wrap" aria-label="Photo with pin marking IPD dial">
+              <img class="photo" src="images/quest 3 ipd.webp" alt="Meta Quest 3 interior lenses with IPD slider" />
+              <div class="pin" style="--x: 62%; --y: 52%">
+                <div class="dot"></div>
+                <div class="label"><strong>IPD Wheel</strong> — lens spacing</div>
+              </div>
+            </div>
+            <figcaption>Rotate wheel until the image is sharp and comfortable.</figcaption>
+          </figure>
+          <ul>
+            <li>Rotate wheel to move lenses <strong>closer or farther apart</strong>.</li>
+            <li>Stop when text/edges look <strong>crisp</strong> and your eyes feel relaxed.</li>
+            <li>If sharing a headset, each person should adjust the lenses for themselves.</li>
+          </ul>
+        </section>
+
+        <!-- 4) VOLUME LAST -->
+        <section class="section" aria-labelledby="volume-h">
+          <h2 id="volume-h">Volume</h2>
+          <figure>
+            <div class="photo-wrap" aria-label="Photo with pin marking volume rocker">
+              <img class="photo" src="images/quest 3 volume.webp" alt="Meta Quest 3 underside showing volume buttons" />
+              <div class="pin" style="--x: 65%; --y: 50%">
+                <div class="dot"></div>
+                <div class="label">Volume + / −</div>
+              </div>
+            </div>
+            <figcaption>
+              Use the <strong>volume rocker</strong> on the underside (right side).
+            </figcaption>
+          </figure>
+          <ul>
+            <li>Buttons are on the <strong>underside</strong> toward the right.</li>
+            <li>Press <strong>+</strong> to increase, <strong>−</strong> to decrease.</li>
+            <li>On‑screen indicator shows current level.</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
